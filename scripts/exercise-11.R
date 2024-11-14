@@ -8,6 +8,11 @@
 
 # load libraries ----------------------------------------------------------
 
+library(tidyverse)
+library(brms)
+library(tidybayes)
+library(marginaleffects)
+library(broom.mixed)
 
 # load data ---------------------------------------------------------------
 

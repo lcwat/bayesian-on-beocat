@@ -163,7 +163,14 @@ brm_main_only <- brm(
   murder ~ c.assault + c.rape + c.urban_pop, data = usarrests,
   cores = 4
 )
+
+# save it 
+write_rds(brm_main_only, "brm-e.rds")
+
 ###
+
+# read it in
+brm_main_only <- read_rds("brm-e.rds")
 
 # instead can use waic()
 waic(
@@ -215,10 +222,19 @@ causality_68 <- conditional_effects(brm_causality)
 
 ### BEOCAT
 # run a second model in with an informed prior for sex difference
+get_prior(
+  correct ~ c.detection_prob * sex + (c.detection_prob | subject),
+  family = bernoulli(), # bernoulli error dist.
+  data = causality
+)
+
+# looking to set prior of the sex1 parameter, using just sex will not work bc
+# priors are created for each level of sex
+
 brm_informed_causality <- brm(
   correct ~ c.detection_prob * sex + (c.detection_prob | subject),
   family = bernoulli(), # bernoulli error dist. 
-  prior = set_prior("normal(.5, .1)", coef = "sex"),
+  prior = c(set_prior("normal(.5, .1)", class = "b", coef = "sex1")),
   sample_prior = T, save_all_pars = T,
   data = causality, cores = 4
 )
@@ -250,8 +266,11 @@ brm_citations <- brm(
     set_prior("normal(400,400)", nlpar = "A"),
     set_prior("normal(-1, 1)", nlpar = "B")
   ),
+  iter = 5000, warmup = 4000, # more samples to address converg. issues
   cores = 4
 )
+
+summary(brm_citations)
 
 plot(brm_citations, variable = "^b_", regex = T)
 

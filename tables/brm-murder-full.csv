@@ -1,0 +1,10 @@
+"model", "term", "estimate", "std.error", "conf.low", "conf.high"
+"1", "bayesian lm", "(Intercept)", 8.462, 0.533, 7.38, 9.493
+"2", "bayesian lm", "c.assault", 0.033, 0.007, 0.019, 0.048
+"3", "bayesian lm", "c.rape", 0.121, 0.067, -0.013, 0.251
+"4", "bayesian lm", "c.urban_pop", -0.093, 0.046, -0.184, -0.002
+"5", "bayesian lm", "c.assault:c.rape", -0.001, 0.001, -0.003, 0
+"6", "bayesian lm", "c.assault:c.urban_pop", 0, 0.001, -0.001, 0.001
+"7", "bayesian lm", "c.rape:c.urban_pop", -0.001, 0.005, -0.011, 0.008
+"8", "bayesian lm", "c.assault:c.rape:c.urban_pop", 0, 0, 0, 0
+"9", "bayesian lm", "sd__Observation", 2.583, 0.28, 2.085, 3.182

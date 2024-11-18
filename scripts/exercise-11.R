@@ -175,8 +175,12 @@ brm_murder <- read_rds("rds/brm-a.rds")
 
 summary(brm_murder)
 
+# terrible convergence, rhats are huge!!
+
 # plot
 plot(brm_murder)
+
+# no fuzzy caterpillars either! chains are not showing good convergence at all!!
 
 # small dataset and collinear predictors, check in on how the chains are converging
 
@@ -201,10 +205,34 @@ summary(brm_murder_c)
 
 plot(brm_murder_c)
 
-`# compare results for centered predictors between trad and brm
+# chains are converging much better than before
+
+# compare results for centered predictors between trad and brm
 table_lm <- tidy(lm_murder_c)
+table_lm <- table_lm |> 
+  mutate(
+    model = "linear", 
+    .before = "term"
+  )
+
+table_lm <- table_lm |> 
+  mutate(
+    across(where(is.numeric), ~round(., digits = 3))
+  )
 
 table_brm <- tidy(brm_murder_c)
+table_brm <- table_brm |> 
+  mutate(
+    model = "bayesian lm", 
+    .before = "term",
+    across(where(is.numeric), ~round(., digits = 3))
+  ) |> 
+  select(c(4:9))
+
+# save as csv
+write.table(table_lm, "tables/lm-murder-full.csv", sep = ", ")
+write.table(table_brm, "tables/brm-murder-full.csv", sep = ", ")
+
 
 ### BEOCAT
 # run a main effects only bayesian model to compare to full factorial model 
@@ -719,7 +747,7 @@ write_rds(brm_citations, "rds/brm-3a.rds")
 brm_citations <- read_rds("rds/brm-3a.rds")
 
 # report individ scientist coef
-coef(brm_citations)
+table_AB <- coef(brm_citations)
 
 # some code from mike to plot individual scientists
 conditions <- data.frame(scientist = unique(citations$scientist))

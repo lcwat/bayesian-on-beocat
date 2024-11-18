@@ -1,0 +1,9 @@
+"model", "term", "estimate", "std.error", "statistic", "p.value"
+"1", "linear", "(Intercept)", 8.484, 0.507, 16.727, 0
+"2", "linear", "c.assault", 0.033, 0.007, 4.675, 0
+"3", "linear", "c.rape", 0.123, 0.063, 1.945, 0.058
+"4", "linear", "c.urban_pop", -0.094, 0.044, -2.111, 0.041
+"5", "linear", "c.assault:c.rape", -0.001, 0.001, -1.666, 0.103
+"6", "linear", "c.assault:c.urban_pop", 0, 0.001, 0.114, 0.91
+"7", "linear", "c.rape:c.urban_pop", -0.001, 0.004, -0.288, 0.775
+"8", "linear", "c.assault:c.rape:c.urban_pop", 0, 0, 0.889, 0.379

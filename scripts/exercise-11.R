@@ -274,7 +274,7 @@ color_scheme_set("viridisA")
 # plot central posterior estimates for main eff parameters, 
 # shows density distrib. with shaded region for 68% cred interval
 mcmc_areas(
-  as.array(brm_main_only), pars = c("b_c.assault", "b_c.rape", "b_c.urban_pop"), 
+  as.array(brm_murder_c), pars = c("b_c.assault", "b_c.rape", "b_c.urban_pop"), 
   
 ) +
   labs(
@@ -286,7 +286,7 @@ mcmc_areas(
 
 # save it
 ggsave(
-  "plots/usa-main-eff-area-plot.png", device = "png",
+  "plots/usa-fullfact-me-area-plot.png", device = "png",
   width = 6.5, height = 6, units = "in"
 )
 
@@ -846,6 +846,10 @@ write_rds(spline_citations, "rds/brm-3d.rds")
 
 # read it in
 spline_citations <- read_rds("rds/brm-3d.rds")
+
+summary(spline_citations)
+
+# converged well
 
 # plot the spline to visualize fit
 # does not provide code to do this, could use predict or sim. function for brm?
